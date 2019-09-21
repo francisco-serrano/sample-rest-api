@@ -2,7 +2,7 @@ package com.example.samplearchitecture.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CreateCarDTO {
+public class CreateUpdateCarDTO {
     @JsonProperty("brand")
     private String brand;
 

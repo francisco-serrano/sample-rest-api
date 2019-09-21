@@ -1,5 +1,7 @@
 package com.example.samplearchitecture.entity;
 
+import com.example.samplearchitecture.dto.CreateUpdateCarDTO;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +16,10 @@ public class Car {
         this.version = version;
         this.engineSize = engineSize;
         this.horsePower = horsePower;
+    }
+
+    public Car(CreateUpdateCarDTO dto) {
+        this(dto.getBrand(), dto.getModel(), dto.getVersion(), dto.getEngineSize(), dto.getHorsePower());
     }
 
     @Id

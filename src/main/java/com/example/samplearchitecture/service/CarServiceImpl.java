@@ -1,11 +1,13 @@
 package com.example.samplearchitecture.service;
 
-import com.example.samplearchitecture.dto.CreateCarDTO;
+import com.example.samplearchitecture.dto.CreateUpdateCarDTO;
 import com.example.samplearchitecture.entity.Car;
 import com.example.samplearchitecture.repository.CarRepository;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,9 +22,42 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car createCar(CreateCarDTO dto) {
-        var car = new Car(dto.getBrand(), dto.getModel(), dto.getVersion(), dto.getEngineSize(), dto.getHorsePower());
+    public List<Car> getCars() {
+        return Lists.newArrayList(this.carRepository.findAll());
+    }
+
+    @Override
+    public Car createCar(CreateUpdateCarDTO dto) {
+        var car = new Car(dto);
 
         return this.carRepository.save(car);
+    }
+
+    @Override
+    public Optional<Car> updateCar(int id, CreateUpdateCarDTO dto) {
+        var car = this.carRepository.findById(id);
+
+        if (car.isPresent()) {
+            var updatedCar = car.get();
+
+            updatedCar.setBrand(dto.getBrand());
+            updatedCar.setEngineSize(dto.getEngineSize());
+            updatedCar.setHorsePower(dto.getHorsePower());
+            updatedCar.setModel(dto.getModel());
+            updatedCar.setVersion(dto.getVersion());
+
+            this.carRepository.save(updatedCar);
+        }
+
+        return car;
+    }
+
+    @Override
+    public Optional<Car> deleteCar(int id) {
+        var car = this.carRepository.findById(id);
+
+        car.ifPresent(value -> this.carRepository.delete(value));
+
+        return car;
     }
 }
