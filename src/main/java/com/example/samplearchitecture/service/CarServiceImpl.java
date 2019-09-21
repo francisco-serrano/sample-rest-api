@@ -6,6 +6,7 @@ import com.example.samplearchitecture.repository.CarRepository;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +35,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    @Transactional
     public Optional<Car> updateCar(int id, CreateUpdateCarDTO dto) {
         var car = this.carRepository.findById(id);
 
@@ -53,6 +55,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    @Transactional
     public Optional<Car> deleteCar(int id) {
         var car = this.carRepository.findById(id);
 
