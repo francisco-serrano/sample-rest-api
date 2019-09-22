@@ -26,7 +26,7 @@ import static junit.framework.TestCase.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CarControllerTests extends AbstractTestNGSpringContextTests {
+public class CarTests extends AbstractTestNGSpringContextTests {
 
     @LocalServerPort
     private int port;
